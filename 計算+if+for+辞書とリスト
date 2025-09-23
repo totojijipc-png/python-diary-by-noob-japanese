@@ -77,10 +77,10 @@ for i in range(1,6):
 #辞書とリストの使い方も書いときます
 PlayerData = {"name":"totojiji","job":"student"}
 PlayerData["job"] = "21歳学生"
-PlayerData["arg"] = 21
+PlayerData["age"] = 21
 del PlayerData["job"]
 PeopleJob = PlayerData.pop("job","んなもんねえよ！！")
-PlayerData.update({"name": "new_name", "arg": 114514})
+PlayerData.update({"name": "new_name", "age": 114514})
 print(PlayerData)
 print(PeopleJob)
 #めっちゃ便利なんでしょうが、初心者のうちは難しくて触れられないですね。。。顧客データをまとめたりするのに重宝しそう
