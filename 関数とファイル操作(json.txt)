@@ -1,0 +1,167 @@
+# 今回は関数やっていこうと思います。
+# どの言語でもややこしかったりむずかったりするんでchatGPT君に相談しつつやっていきます
+
+#def　がこれから関数作るぜ！っていう宣言らしい。ちなみに、関数っていうのは、主に、よく使う処理を使いまわせるようにするためのものらしい
+def add(a, b):
+    return a + b
+
+total = add(114513, 1)
+print(total)
+#便利そう
+
+
+#ラムダ関数君はかなり短く書けるらしい
+puls3 = lambda a:a +3
+print(puls3(1))
+#ワオ。ほんとにめっちゃ短いね。でも、これ使いすぎると、難読化しそう
+
+
+#引数を設定しない場合も決めれるらしい※引数とは()中の数字のこと
+def ult(name="cypher"):
+    print(f"[{name}]<どこにいるかわかってるぜ!")
+
+ult()
+#あんまり使わなそう
+
+
+#可変長引数っていう、値をいくらでも受け取れるやつがあるらしいです
+def total(*numbers):
+    return sum(numbers)
+
+print(total(1,3,5,1))
+#必須だね
+
+
+#ネスト関数　これはやりすぎるとくそコードになるらしいですが、小さな処理とかをまとめるのに便利らしいです。やりすぎ注意ですねー
+def big_mam(x):
+    def litle_mam(y):
+        def big_son(z):
+            def litle_son(a):
+                return a + 12
+            return litle_son(y) + 23
+        return big_son(y) + 50
+    return litle_mam(x) + 130
+
+total_age = big_mam(200)
+print(total_age)
+#書くのバカだるいし、難しかった。読みにくくなるし、むずいので、いったん放置
+
+
+#今回は関数だけしようと思ったら、思いのほかすぐに終わったので（学びが浅いだけかもしれないが）データ操作もやっていこう
+#自分はファイル操作全く知らないので、chatgpt君に助けてもらいます
+
+#まず、モードっていうのがあるらしい
+
+# r = read　文字どおり読み専用
+
+# w = write　文字通り書き専用
+
+# a = add　加える
+
+# b = binary　バイナリ。よくわかんない
+
+# xというものもあるらしい。ファイルがあったら何もせず、ファイルがなかったら作成できるらしい
+
+#そして、
+
+#file = open("---.text","モード")
+#close()
+
+# これでできるらしい。だけど、closeとかだるいので、きほん、withという使い終わったら自動で閉じてくれる優秀な奴使うらしい
+
+#with open("---.test","モード") as f:
+
+# よくわかんないけどこっちの書き方だったら[:]がいるんだよね。withが関数だからかな?
+#ここからはテスト。githubで同じ結果出せるかわからないけれど、textファイル作ってみる
+with open("test.txt", "w") as f:
+    f.write("Pythonで作ったファイル\n")
+    f.write("Pythonから直接作ればミスがなくていいかもね")
+
+
+with open("test.txt","r") as f:
+    all = f.read()
+print(all)
+#ここまで結構簡単。複数入力や、json形式とかもあるらしいので、勉強
+lines = ["1行目\n", "2行目\n", "3行目"]
+with open("test.txt", "w") as f:
+    f.writelines(lines)
+
+with open("test.txt","r") as f:
+    print(f.read())
+    f.seek(0) 
+    for line in f:
+        print(line.strip(), end="")
+        print("")
+#かなりてこずったが、できました。writelinesはリストなどで大量に書き込むときに使うもので、リストできれいに入力できます。
+# 手こずったポイントは読み取りで、ポインタが悪さをしていました。これ、読み取り専用で開くところまではいいのですが、一度printなどで最後まで読み取ってしまったら、ポインタが最後まで移動してしまって
+# あとから、for lineなどで一行ずつ読めないんですよね
+# そのために、seekというものを使って、ポインタを最初(0)に戻さないといけないみたいです
+#stripは改行をなくすためのものなのですが、stripが消せるのは、linesのそれぞれの改行だけで、print自体の、改行は消してくれないんですよね。なので、endというものを使って
+# printの最後を空白にします。そうすると、デフォルトで入っている\nが消えてうまく表示できるんですよね。めっちゃてこずりましたが、成長できました。。。
+
+
+#ほかにも、
+# import os
+# という、そのままの意味でOSを読み込むやつもあるらしいです。そこでは、ファイル、フォルダの制作、編集、削除、存在確認、サイズ検索とかいろいろできるみたいです。
+import os 
+
+print(os.path.getsize("test.txt"))
+# ためしに、ファイルのでかさを表示してみた。普通に使えそう。
+
+
+
+# また、pathlibという、くそ便利なライブラリもあるらしい
+from pathlib import Path
+p = Path("test.txt")
+# ファイルが存在するかチェック
+print(p.exists())   # True / False
+
+# 拡張子の取得
+print(p.suffix)     # ".txt"
+
+# 親ディレクトリ
+print(p.parent)     
+
+# ファイル読み込み（文字列として）
+print(p.read_text())
+
+# ファイル書き込み（上書き）
+p.write_text("Hello Pathlib!")
+
+print(p.read_text())
+#みたいな感じで、openとかreadとかめんどくさい作業をスキップできるライブラリ。超便利だね
+
+
+
+#JSONっていうデータやり取りする形式があるらしい。pythonのリストにめっちゃ似てるけど、javascriptのやつらしい。web開発とかには必須らしいので、やってみる
+import json
+
+data = {
+    "name":"totojiji",
+    "age":21,
+    "job":"student",
+    "like":["sushi", "game"]
+}
+
+displayjson = json.dumps(data, indent=2, ensure_ascii=False)
+print(displayjson)
+#dumpsにすることで、文字列として表示できる。dumpは普通に保存するようらしい。実際に保存してみた
+with open("test.json","w",encoding="utf-8") as f:
+    json.dump(data,f,indent=2,ensure_ascii=False)
+
+j = Path("test.json")
+print(j.read_text())
+#早速pathlibつかって読み取りしてみた。超楽でいいね。
+# jsonは今後もお世話になりそうなので、仲良くやっていきたい。
+
+
+# json to pyでも、loadsとloadは文字列か、ファイル読み込みかの違いらしい。loadしか使わなそうだけどどうなんだろう
+with open("test.json","r",encoding="utf-8") as f:
+    data = json.load(f)
+    print(data["name"])
+#jsonの操作とtxtの操作がぐちゃぐちゃになって覚えれなさそう。まあ、使っていくうちになれるでしょう、、、
+# ですが、ここまで勉強したおかげで、アプリで操作したものを、jsonで保存して、表示する技術を身に着けることができた！！
+# ここまでべんきょうしたら、メモアプリぐらいは作れるかも？
+
+#ちなみに、かなりどうでもいいことなんですが、このコードたちはvscodeで書いてからそのままコピペしてます。なんか問題かもしれないけど、、、まあ大丈夫でしょう！ 
+#次回はエラーハンドリングです。tryとかのやつです
