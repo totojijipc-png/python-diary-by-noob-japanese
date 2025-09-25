@@ -1,0 +1,34 @@
+{
+    "song":{
+        "name":"YJAU&U",
+        "artist":"motimoti",
+        "bpm":810
+    },
+
+    "notes":[
+        {
+            "timing":1.2,
+            "type":"red",
+            "position":1,
+            "speed":1
+        },
+        {
+            "timing":2.2,
+            "type":"yellow",
+            "position":3,
+            "speed":1.1
+        },
+        {
+            "timing":3.6,
+            "type":"blue",
+            "position":2,
+            "speed":2
+        },
+        {
+            "timing":5.2,
+            "type":"red2",
+            "position":4,
+            "speed":1.4
+        }
+    ]
+}
